@@ -1,12 +1,29 @@
-DROP DATABASE IF EXISTS test;
+DROP DATABASE IF EXISTS analytics;
 
-CREATE DATABASE test;
+CREATE DATABASE analytics;
 
-USE test;
+USE analytics;
 
-CREATE TABLE items (
+CREATE TABLE metrics (
   id int NOT NULL AUTO_INCREMENT,
-  quantity integer NOT NULL,
-  description varchar(50) NOT NULL,
+  subctiption_id integer NOT NULL,
+  ads_status boolean NOT NULL,
+  ads_clicked boolean NOT NULL,
+  PRIMARY KEY (ID)
+);
+
+CREATE TABLE subscription (
+  id int NOT NULL AUTO_INCREMENT,
+  user_id integer NOT NULL,
+  channel_id integer NOT NULL,
+  subscribed boolean NOT NULL,
+  PRIMARY KEY (ID)
+);
+
+CREATE TABLE finale (
+  id int NOT NULL AUTO_INCREMENT,
+  user_id integer NOT NULL,
+  channel_id integer NOT NULL,
+  subscribed boolean NOT NULL,
   PRIMARY KEY (ID)
 );
