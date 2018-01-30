@@ -19,23 +19,14 @@ var selectAll = function(callback) {
   });
 };
 
-var saveArchana = function(data, callback) {
-  var values = [];
-  for (var i = 0; i < data.length; i++) {
-    for (var j = 0; j < data[i].subs.length; j++) {
-      var value = `${data[i].id}, ${data[i].subs[j]}`;
-      values.push(value);
-    }
+var checkSub = function(callback) {
+  var boolean = Math.random() * 1 > 0.5;
+  if (!boolean) {
+    callback(null, boolean);
+  } else {
+    callback(null, boolean);
   }
-  console.log(values);
-  connection.query(`INSERT INTO archana (channel_id, user_id) VALUES ${values.join(', ')}`, function(err, results, fields) {
-    if(err) {
-      callback(err, null);
-    } else {
-      callback(null, results);
-    }
-  });
 };
 
 module.exports.selectAll = selectAll;
-module.exports.saveArchana = saveArchana;
+module.exports.checkSub = checkSub;
