@@ -45,6 +45,7 @@ app.listen(port, function() {
 });
 
 app.get('/archana', function (req, res) {
+  console.log('arch');
   db.saveArchana(Archana, function(err, data) {
     if(err) {
       res.sendStatus(500);
@@ -54,7 +55,7 @@ app.get('/archana', function (req, res) {
   });
 });
 
-request(`127.0.0.1:${port}/archana`, function (error, response, body) {
+request(`localhost:${port}/archana`, function (error, response, body) {
   console.log('error:', error); // Print the error if one occurred
   console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
   console.log('body:', body); // Print the HTML for the Google homepage.

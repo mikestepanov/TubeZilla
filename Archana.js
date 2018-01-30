@@ -31,6 +31,4 @@ const createPool = () => {
   return 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 };
 
-console.log(omega());
-
 module.exports = omega;

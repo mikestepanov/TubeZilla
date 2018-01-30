@@ -1,4 +1,5 @@
 var mysql = require('mysql');
+var async = require('async');
 var config = require('../configs/config');
 
 var connection = mysql.createConnection({
@@ -19,11 +20,15 @@ var selectAll = function(callback) {
 };
 
 var saveArchana = function(data, callback) {
-  var
+  var values = [];
   for (var i = 0; i < data.length; i++) {
-
+    for (var j = 0; j < data[i].subs.length; j++) {
+      var value = `${data[i].id}, ${data[i].subs[j]}`;
+      values.push(value);
+    }
   }
-  connection.query(`INSERT INTO archana (channel_id, user_id) VALUES ${values}`, function(err, results, fields) {
+  console.log(values);
+  connection.query(`INSERT INTO archana (channel_id, user_id) VALUES ${values.join(', ')}`, function(err, results, fields) {
     if(err) {
       callback(err, null);
     } else {

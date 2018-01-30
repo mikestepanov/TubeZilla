@@ -10,7 +10,7 @@
     "node": ">=9.4.0"
   },
   "scripts": {
-    "start": "node server/index.js"
+    "start": "nodemon server/index.js"
   },
   "devDependencies": {
     "babel-core": "^6.23.1",
