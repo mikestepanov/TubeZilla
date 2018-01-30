@@ -1,13 +1,10 @@
 var express = require('express');
-var bodyParser = require('body-parser');
-var path = require('path');
 
 var db = require('../mysql');
 
 var app = express();
 
 app.use(express.static(__dirname + '/../react/dist'));
-app.use(bodyParser.json());
 
 app.get('/items', function (req, res) {
   db.selectAll(function(err, data) {
