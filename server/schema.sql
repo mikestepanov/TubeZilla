@@ -20,6 +20,13 @@ CREATE TABLE subscription (
   PRIMARY KEY (ID)
 );
 
+CREATE TABLE archana (
+  id int NOT NULL AUTO_INCREMENT,
+  channel_id integer NOT NULL,
+  user_id integer NOT NULL,
+  PRIMARY KEY (ID)
+);
+
 CREATE TABLE finale (
   id int NOT NULL AUTO_INCREMENT,
   user_id integer NOT NULL,

@@ -1,5 +1,5 @@
 const omega = () => {
-  var channels = getRandomPool(1000, 10);
+  var channels = getRandomPool(999, 10);
   for (var i = 0; i < channels.length; i++) {
     var obj = {id: channels[i], subs: []};
     obj.subs = getRandomPool(Math.floor(Math.random() * 1000), 15);
