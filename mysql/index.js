@@ -1,20 +1,19 @@
 var mysql = require('mysql');
-var async = require('async');
-var config = require('../configs/config');
 
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
-  password : config.mysqlPassword,
-  database : 'test'
+  password : '',
+  database : 'analytics'
 });
 
-var selectAll = function(callback) {
-  connection.query('SELECT * FROM items', function(err, results, fields) {
+var save = function(obj, callback) {
+  var item = `(${obj.user_id}, ${obj.channel_id}, ${obj.ad_clicked}, ${obj.ad_status})`;
+  connection.query(`INSERT INTO metrics (user_id, channel_id, ad_clicked, ad_status) VALUES ${item}`, function(err, results) {
     if(err) {
       callback(err, null);
     } else {
-      callback(null, results);
+      callback(null, results.insertId);
     }
   });
 };
@@ -28,5 +27,7 @@ var checkSub = function(callback) {
   }
 };
 
-module.exports.selectAll = selectAll;
-module.exports.checkSub = checkSub;
+module.exports = {
+  save,
+  checkSub
+};

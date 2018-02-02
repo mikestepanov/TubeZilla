@@ -9,7 +9,7 @@ app.use(express.static(__dirname + '/../react/dist'));
 app.use(bodyParser.json());
 
 app.get('/ads', function (req, res) {
-  db.save(req.body, function(err, data) {
+  db.save({user_id: '123123', ad_clicked: 'TRUE', ad_status: 'TRUE', channel_id: '1231321111'}, function(err, data) {
     if (err) {
       res.sendStatus(500);
     } else {
@@ -20,6 +20,7 @@ app.get('/ads', function (req, res) {
 
 app.get('/subscribed', function (req, res) {
   db.checkSub(function(err, data) {
+    console.log(data);
     if (err) {
       res.sendStatus(500);
     } else {
