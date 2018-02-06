@@ -31,7 +31,7 @@ CREATE TABLE metrics (
 
 CREATE TABLE ez (
   id int NOT NULL AUTO_INCREMENT,
-  user_id integer NOT NULL,
-  channel_id integer NOT NULL,
+  value int NOT NULL,
+  hours integer NOT NULL,
   PRIMARY KEY (ID)
 );

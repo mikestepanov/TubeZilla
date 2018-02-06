@@ -6,28 +6,26 @@ var connection = mysql.createConnection({
   password : '',
   database : 'analytics'
 });
-  
-var init = Date.now();
-var data = [];
-var str = '';
-var count = 0;
-for (var i = 0; i <= 10000; i++) {
-  for (var j = 0; j < 1000; j++) {
-    str += `(${i}, ${j}), `;
-  }
-  str += `(${i}, ${j})`;
-  data.push(str);
-  str = '';
-}
-console.log(`Time took to generate data: ${Date.now() - init} ms`);
 
 var init = Date.now();
-var count = 0;
-for (var str of data) {
-  connection.query(`INSERT INTO ez (user_id, channel_id) VALUES ${str}`, function() {
-    count++;
-    if (count === 10000) {
-      console.log(`Time took to insert data: ${Date.now() - init} ms`);
+
+var genNewData = () => {
+  var str = '';
+  for (var i = 0; i < 1000; i++) {
+    str += `(${~~(Math.random() * 3)}, ${~~(Math.random() * 24)}), `;
+  }
+  str += `(${~~(Math.random() * 3)}, ${~~(Math.random() * 24)})`;
+  return str;
+}
+
+for (var i = 0; i <= 15000; i++) {
+  console.log(i);
+  if (i === 15000) {
+    console.log(`Time took to insert data: ${Date.now() - init} ms`);
+  }
+  connection.query(`INSERT INTO ez (value, hours) VALUES ${genNewData()}`, function(err, data) {
+    if (err) {
+      console.log('we are screwed');
     }
   });
 }
