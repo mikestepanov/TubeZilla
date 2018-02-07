@@ -1,14 +1,15 @@
-var mysql = require('mysql');
+const mysql = require('mysql');
+const request = require('request');
 
-var connection = mysql.createConnection({
+const connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
   password : '',
   database : 'analytics'
 });
 
-var save = function(obj, callback) {
-  var item = `(${obj.user_id}, ${obj.channel_id}, ${obj.ad_clicked}, ${obj.ad_status})`;
+const save = function(obj, callback) {
+  const item = `(${obj.user_id}, ${obj.channel_id}, ${obj.ad_clicked}, ${obj.ad_status})`;
   connection.query(`INSERT INTO metrics (user_id, channel_id, ad_clicked, ad_status) VALUES ${item}`, function(err, results) {
     if(err) {
       callback(err, null);
@@ -18,8 +19,8 @@ var save = function(obj, callback) {
   });
 };
 
-var checkSub = function(callback) {
-  var boolean = Math.random() * 1 > 0.5;
+const checkSub = function(callback) {
+  const boolean = Math.random() * 1 > 0.5;
   if (!boolean) {
     callback(null, boolean);
   } else {
@@ -27,7 +28,46 @@ var checkSub = function(callback) {
   }
 };
 
+const GilOutput = function(obj, callback) {
+  const {user_id, channel_id, ad_status} = obj;
+  console.log(user_id, channel_id, ad_status);
+  request({
+    method: 'POST',
+    url: 'http://127.0.0.1:3000/subscribed/',
+    json: true,
+    body: {
+      user_id: user_id,
+      channel_id: channel_id
+    },
+    success: (subscribed) => {
+      console.log(subscribed, 'fdsfs');
+
+    },
+    failure: (err) => {
+      console.log(err, 'omegaLegit');
+      callback(err, null);
+    }
+  }, function(err, res) {
+    if (err) {
+      console.log(err);
+      callback(err, null);
+    } else {
+      var subscribed = res.body;
+      var hours = new Date().getHours();
+      connection.query(`INSERT INTO final (value, subscribed, hours) VALUES (${ad_status}, ${subscribed}, ${hours})`, function(err, results) {
+        console.log(results);
+        if(err) {
+          callback(err, null);
+        } else {
+          callback(null, results.insertId);
+        }
+      });
+    }
+  });
+};
+
 module.exports = {
   save,
-  checkSub
+  checkSub,
+  GilOutput
 };

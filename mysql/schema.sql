@@ -28,10 +28,10 @@ CREATE TABLE metrics (
   PRIMARY KEY (ID)
 );
 
-
-CREATE TABLE ez (
+CREATE TABLE final (
   id int NOT NULL AUTO_INCREMENT,
   value int NOT NULL,
+  subscribed int NOT NULL,
   hours integer NOT NULL,
   PRIMARY KEY (ID)
 );

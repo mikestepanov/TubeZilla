@@ -1,15 +1,15 @@
-var express = require('express');
-var request = require('request');
-var bodyParser = require('body-parser');
-var db = require('../mysql');
+const express = require('express');
+const request = require('request');
+const bodyParser = require('body-parser');
+const db = require('../mysql');
 
-var app = express();
+const app = express();
 
 app.use(express.static(__dirname + '/../react/dist'));
 app.use(bodyParser.json());
 
 app.get('/ads', function (req, res) {
-  db.save({user_id: '123123', ad_clicked: 'TRUE', ad_status: 'TRUE', channel_id: '1231321111'}, function(err, data) {
+  db.GilOutput({user_id: `${~~(Math.random() * 1000000)}`, channel_id: `${~~(Math.random() * 1000000)}`, ad_status: `${~~(Math.random() * 3)}`}, function(err, data) {
     if (err) {
       res.sendStatus(500);
     } else {
@@ -18,12 +18,14 @@ app.get('/ads', function (req, res) {
   });
 });
 
-app.get('/subscribed', function (req, res) {
+app.post('/subscribed', function (req, res) {
+  console.log('recieve subscibed');
   db.checkSub(function(err, data) {
-    console.log(data);
     if (err) {
+      console.log('sub err')
       res.sendStatus(500);
     } else {
+      console.log('sub data over here');
       res.json(data);
     }
   });
