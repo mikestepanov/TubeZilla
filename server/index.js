@@ -1,3 +1,4 @@
+require('newrelic');
 var nr = require('newrelic');
 const express = require('express');
 const request = require('request');
@@ -20,13 +21,11 @@ app.get('/ads', function (req, res) {
 });
 
 app.post('/subscribed', function (req, res) {
-  console.log('recieve subscibed');
   db.checkSub(function(err, data) {
     if (err) {
       console.log('sub err')
       res.sendStatus(500);
     } else {
-      console.log('sub data over here');
       res.json(data);
     }
   });

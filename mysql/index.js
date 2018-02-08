@@ -29,8 +29,8 @@ const checkSub = function(callback) {
 };
 
 const GilOutput = function(obj, callback) {
+  console.log('recieved request', Date.now());
   const {user_id, channel_id, ad_status} = obj;
-  console.log(user_id, channel_id, ad_status);
   request({
     method: 'POST',
     url: 'http://127.0.0.1:3000/subscribed/',
@@ -38,14 +38,6 @@ const GilOutput = function(obj, callback) {
     body: {
       user_id: user_id,
       channel_id: channel_id
-    },
-    success: (subscribed) => {
-      console.log(subscribed, 'fdsfs');
-
-    },
-    failure: (err) => {
-      console.log(err, 'omegaLegit');
-      callback(err, null);
     }
   }, function(err, res) {
     if (err) {
@@ -55,7 +47,6 @@ const GilOutput = function(obj, callback) {
       var subscribed = res.body;
       var hours = new Date().getHours();
       connection.query(`INSERT INTO final (value, subscribed, hours) VALUES (${ad_status}, ${subscribed}, ${hours})`, function(err, results) {
-        console.log(results);
         if(err) {
           callback(err, null);
         } else {
