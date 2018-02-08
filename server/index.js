@@ -1,3 +1,4 @@
+var nr = require('newrelic');
 const express = require('express');
 const request = require('request');
 const bodyParser = require('body-parser');
