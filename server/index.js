@@ -1,4 +1,3 @@
-require('newrelic');
 var nr = require('newrelic');
 const express = require('express');
 const request = require('request');
@@ -34,5 +33,5 @@ app.post('/subscribed', function (req, res) {
 const port = process.env.PORT || 3000;
 
 app.listen(port, function() {
-  console.log(`Serving 127.0.0.1:${port}`);
+  console.log(`127.0.0.1:${port}`);
 });
