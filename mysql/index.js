@@ -29,7 +29,7 @@ const checkSub = function(callback) {
 };
 
 const GilOutput = function(obj, callback) {
-  console.log('recieved request', Date.now());
+  console.log(Date.now());
   const {user_id, channel_id, ad_status} = obj;
   request({
     method: 'POST',
@@ -41,7 +41,6 @@ const GilOutput = function(obj, callback) {
     }
   }, function(err, res) {
     if (err) {
-      console.log(err);
       callback(err, null);
     } else {
       var subscribed = res.body;
