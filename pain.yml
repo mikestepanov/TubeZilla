@@ -2,7 +2,7 @@ config:
   target: 'http://127.0.0.1:3000'
   phases:
     - duration: 360000000
-      arrivalRate: 200
+      arrivalRate: 150
   defaults:
     headers:
       x-my-service-auth: '987401838271002188298567'
