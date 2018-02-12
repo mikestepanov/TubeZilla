@@ -29,6 +29,7 @@ const checkSub = function(callback) {
 };
 
 const GilOutput = function(obj, callback) {
+  console.log(Date.now());
   const {user_id, channel_id, ad_status} = obj;
   request({
     method: 'POST',
